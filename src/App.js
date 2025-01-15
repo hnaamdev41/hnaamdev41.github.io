@@ -11,7 +11,6 @@ import {
 const App = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [activeProject, setActiveProject] = useState(null);
   const [isDark, setIsDark] = useState(true);
 
   const githubStats = {
