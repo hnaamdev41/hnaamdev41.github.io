@@ -60,20 +60,17 @@ const VSCodeTabs = ({ tabs, activeTabId, onTabClick, onTabClose, isDark }) => {
   );
 };
 
-const Minimap = ({ content, isDark }) => {
+const Minimap = ({ isDark }) => {
   return (
-    <div className={`w-20 border-l ${isDark ? 'border-gray-700' : 'border-gray-200'} overflow-hidden`}>
+    <div className={`w-20 border-l ${isDark ? 'border-gray-700 bg-gray-900' : 'border-gray-200 bg-white'} overflow-hidden`}>
       <div className="h-full p-2 opacity-50 hover:opacity-100 transition-opacity">
         <div className="space-y-1">
-          {/* Minimap content representation */}
           <div className="w-full h-1 bg-gray-700 rounded" />
           <div className="w-3/4 h-1 bg-gray-700 rounded" />
           <div className="w-1/2 h-1 bg-gray-700 rounded" />
-          {/* Add more elements based on actual content */}
         </div>
       </div>
     </div>
   );
 };
-
 export { VSCodeTabs, Minimap };

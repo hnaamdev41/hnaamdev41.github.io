@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, ExternalLink, GitFork, Star, GitBranch } from 'lucide-react';
+import { Code, ExternalLink } from 'lucide-react';
 
 const ProjectDetails = ({ project, isDark }) => {
   return (
@@ -39,45 +39,54 @@ const ProjectDetails = ({ project, isDark }) => {
             {project.tech}
           </p>
         </div>
-
-        {/* Project Stats */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className={`${isDark ? 'bg-gray-900' : 'bg-gray-100'} p-3 rounded-lg`}>
-            <div className="flex items-center justify-between">
-              <Star className="text-yellow-400" />
-              <span>{project.stats?.stars || 0}</span>
-            </div>
-            <div className="text-sm text-gray-400 mt-1">Stars</div>
-          </div>
-          <div className={`${isDark ? 'bg-gray-900' : 'bg-gray-100'} p-3 rounded-lg`}>
-            <div className="flex items-center justify-between">
-              <GitFork className="text-blue-400" />
-              <span>{project.stats?.forks || 0}</span>
-            </div>
-            <div className="text-sm text-gray-400 mt-1">Forks</div>
-          </div>
-          <div className={`${isDark ? 'bg-gray-900' : 'bg-gray-100'} p-3 rounded-lg`}>
-            <div className="flex items-center justify-between">
-              <GitBranch className="text-green-400" />
-              <span>{project.stats?.branches || 0}</span>
-            </div>
-            <div className="text-sm text-gray-400 mt-1">Branches</div>
-          </div>
-        </div>
-
-        {/* Timeline */}
-        {project.timeline && (
-          <div className={`${isDark ? 'bg-gray-900' : 'bg-gray-100'} p-4 rounded`}>
-            <h4 className="text-sm font-semibold mb-4">Development Timeline:</h4>
-            <div className="relative pl-8 space-y-6">
+        {/* Timeline only for Cat Finding 2024 */}
+        {project.name === 'Cat Finding 2024' && project.timeline && (
+          <div className={`${isDark ? 'bg-[#0d1117]' : 'bg-gray-100'} p-6 rounded-lg`}>
+            <h2 className="text-xl mb-8">Development Timeline</h2>
+            <div className="space-y-6">
               {project.timeline.map((item, index) => (
-                <div key={index} className="relative">
-                  <div className="absolute -left-2 top-2 w-4 h-4 bg-blue-500 rounded-full" />
-                  {index !== project.timeline.length - 1 && (
-                    <div className="absolute -left-0.5 top-6 w-0.5 h-full bg-gray-700" />
-                  )}
-                  <div className="mb-1 text-gray-400">{item.date}</div>
-                  <div>{item.update}</div>
+                <div key={index} className="grid grid-cols-[140px_10px_1fr] items-start">
+                  {/* Date */}
+                  <div className="text-blue-400 pt-2">
+                    {item.date}
+                  </div>
+                  
+                  {/* Dot and Line */}
+                  <div className="relative flex justify-center h-full pt-3">
+                    <div className="absolute w-2 h-2 rounded-full bg-blue-400" />
+                    {index !== project.timeline.length - 1 && (
+                      <div className="absolute top-5 bottom-0 left-1/2 w-px -translate-x-1/2 bg-gray-700 h-[calc(100%+1.5rem)]" />
+                    )}
+                  </div>
+                  
+                  {/* Content */}
+                  <div className={`${isDark ? 'bg-[#161b22]' : 'bg-gray-200'} rounded-lg p-3`}>
+                    <p className="text-gray-300">{item.update}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Device list for Custom ROM Development */}
+        {project.name === 'Custom ROM Development' && project.devices && (
+          <div className={`${isDark ? 'bg-gray-900' : 'bg-gray-100'} p-4 rounded`}>
+            <h4 className="text-sm font-semibold mb-4">Supported Devices:</h4>
+            <div className="space-y-3">
+              {project.devices.map((device, index) => (
+                <div key={index} className={`p-3 ${isDark ? 'bg-gray-800' : 'bg-gray-200'} rounded`}>
+                  <h5 className="font-medium">{device.name}</h5>
+                  <p className="text-sm text-gray-400">Codename: {device.codename}</p>
+                  <a 
+                    href={device.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 text-sm flex items-center mt-1"
+                  >
+                    <Code size={14} className="mr-1" />
+                    View Device Source
+                  </a>
                 </div>
               ))}
             </div>
@@ -111,17 +120,19 @@ const ProjectDetails = ({ project, isDark }) => {
         </div>
 
         {/* Screenshots */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {project.images?.map((image, index) => (
-            <div key={index} className="relative bg-gray-900 rounded-lg overflow-hidden">
-              <img
-                src={image}
-                alt={`${project.name} screenshot ${index + 1}`}
-                className="w-full h-48 object-cover"
-              />
-            </div>
-          ))}
-        </div>
+        {project.images && project.images.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {project.images.map((image, index) => (
+              <div key={index} className="relative bg-gray-900 rounded-lg overflow-hidden">
+                <img
+                  src={image}
+                  alt={`${project.name} screenshot ${index + 1}`}
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
