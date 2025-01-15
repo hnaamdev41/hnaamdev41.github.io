@@ -98,7 +98,6 @@ const App = () => {
       }]);
     }
     setActiveTab(projectTabId);
-    setActiveProject(project);
   };
 
   const renderContent = () => {
